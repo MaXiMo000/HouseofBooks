@@ -50,7 +50,7 @@ function Navbar() {
         <a href="/contact">Contact</a>
       </li>
       <li>
-        <a>About</a>
+        <a href="/about">About</a>
       </li>
     </>
   );
@@ -100,16 +100,16 @@ function Navbar() {
               <ul className="menu menu-horizontal px-1">{navItems}</ul>
             </div>
             <div className="hidden md:block">
-              <label className=" px-3 py-2 border rounded-md flex items-center gap-2">
-                <input
+              <label className=" px-3 py-2 mr-2  rounded-md flex items-center gap-2">
+                {/* <input
                   type="text"
                   className="grow outline-none rounded-md px-1 dark:bg-slate-900 dark:text-white"
                   placeholder="Search"
-                />
+                /> */}
                 <Link to= '/search'>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
+                    viewBox="0 0 15 15"
                     fill="currentColor"
                     className="w-4 h-4 opacity-70"
                   >
@@ -132,7 +132,7 @@ function Navbar() {
 
               {/* sun icon */}
               <svg
-                className="swap-off fill-current w-7 h-7"
+                className="swap-off fill-current w-7 h-7 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}

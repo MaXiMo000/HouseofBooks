@@ -1,18 +1,18 @@
-import React from "react";
+import React from 'react'
 import Navbar from "../components/Navbar";
-import Search from "../components/Search";
+import About from '../components/about';
 import Footer from "../components/Footer";
 
-const Searchs = () => {
+const abouts = () => {
     return (
-    <div>
+    <>
         <Navbar />
         <div className=" min-h-screen">
-            <Search/>
+            <About />
         </div>
         <Footer />
-    </div>
+    </>
     )
 }
 
-export default Searchs;
+export default abouts
