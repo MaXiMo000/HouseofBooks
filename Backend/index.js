@@ -33,7 +33,7 @@ try {
 // defining routes
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
-app.use("/", searchRoute)
+app.use("/search", searchRoute)
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
