@@ -1,39 +1,42 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react'
 import axios from 'axios';
 
-const Search = () => {
-    const [searchQuery, setSearchQuery] = useState('');
+
+const Category = () => {
+    const [categoryQuery, setcategoryQuery] = useState('');
     const [results, setResults] = useState([]);
     const [error, setError] = useState(null);
 
-    const handleSearch = async (e) => {
+    const handleCat = async (e) => {
         e.preventDefault();
         try {
-        const response = await axios.get(`http://localhost:4001/search`, {
-            params: { name: searchQuery },
+        const response = await axios.get(`http://localhost:4001/category`, {
+            params: { category: categoryQuery },
         });
         setResults(response.data);
         setError(null);
+
         } catch (err) {
-        setError(err.response?.data?.message || 'No Books found');
+            console.log(err);
+        setError(err.response?.data?.message || 'No Books in this category found');
         setResults([]);
         }
     };
 
     return (
-        <div className="min-h-screen  flex flex-col items-center pt-12 mt-20 dark:bg-slate-800 dark:text-white">
+    <div className="min-h-screen  flex flex-col items-center pt-12 mt-20 dark:bg-slate-800 dark:text-white">
         <div className="w-full max-w-xl mx-auto text-center dark:bg-slate-800 dark:text-white">
             <h1 className="text-4xl font-extrabold text-black mb-8 dark:bg-slate-800 dark:text-white">
-            Search for Books
+            Categories
             </h1>
             <form
-            onSubmit={handleSearch}
+            onSubmit={handleCat}
             className="flex flex-col items-center mb-10"
             >
             <input
                 type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={categoryQuery}
+                onChange={(e) => setcategoryQuery(e.target.value)}
                 placeholder="Enter book title"
                 className="w-64 px-4 py-2 border border-gray-300 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 ease-in-out text-black"
             />
@@ -76,7 +79,7 @@ const Search = () => {
             </div>
         </div>
         </div>
-    );
-};
+    )
+}
 
-export default Search;
+export default Category

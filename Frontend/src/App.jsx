@@ -8,6 +8,7 @@ import { useAuth } from "./context/AuthProvider";
 import Contacts from "./contacts/Contacts";
 import Searchs from "./searchs/Searchs";
 import Abouts from "./abouts/abouts";
+import Categories from "./categories/categories"
 
 function App() {
   const [authUser, setAuthUser] = useAuth();
@@ -25,6 +26,7 @@ function App() {
           <Route path="/contact" element={<Contacts />} />
           <Route path="/search" element={<Searchs />} />
           <Route path="/about" element={<Abouts />} />
+          <Route path="/category" element={<Categories />} />
         </Routes>
         <Toaster />
       </div>
