@@ -54,12 +54,12 @@ const Search = () => {
                 <div
                 key={index}
                 className="bg-white dark:bg-slate-800 dark:text-white flex flex-col items-center p-3 rounded-lg shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-2"
-                style={{ width: '300px', height: '300px', maxWidth: '400px', maxHeight: '270px' }}
+                style={{ width: '300px', height: '400px', maxWidth: '400px'}}
                 >
                 <img
                     src={result.image}
                     alt={result.title}
-                    className="w-24 h-24 object-cover rounded-md mb-2 dark:bg-slate-800 dark:text-white"
+                    className="w-60 h-60 object-contain rounded-md mb-2 dark:bg-slate-800 dark:text-white"
                 />
                 <div className="text-center">
                     <h2 className="dark:bg-slate-800 dark:text-white text-md font-semibold text-black truncate">
