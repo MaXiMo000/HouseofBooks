@@ -7,3 +7,7 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+
+.slick-prev:before, .slick-next:before {
+  color: black; /* Change this to your desired color */
+} 

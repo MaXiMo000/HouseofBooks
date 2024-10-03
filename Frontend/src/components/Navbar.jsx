@@ -126,7 +126,7 @@ function Navbar() {
               {/* this hidden checkbox controls the state */}
               <input
                 type="checkbox"
-                className="theme-controller"
+                className="theme-controller opacity-0"
                 value="synthwave"
               />
 
