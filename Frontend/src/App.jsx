@@ -9,6 +9,7 @@ import Contacts from "./contacts/Contacts";
 import Searchs from "./searchs/Searchs";
 import Abouts from "./abouts/abouts";
 import Categories from "./categories/categories"
+import Carts from "./carts/Carts";
 
 function App() {
   const [authUser, setAuthUser] = useAuth();
@@ -27,6 +28,7 @@ function App() {
           <Route path="/search" element={<Searchs />} />
           <Route path="/about" element={<Abouts />} />
           <Route path="/category" element={<Categories />} />
+          <Route path="/cart" element={<Carts/>}/>
         </Routes>
         <Toaster />
       </div>
