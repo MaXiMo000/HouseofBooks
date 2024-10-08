@@ -27,9 +27,21 @@ export const signup = async(req, res) => {
         res.status(500).json({ message: "Internal server error" });
     }
 };
+
+const adminCredentials = {
+    username: 'admin@gmail.com',
+    password: '1234',
+};
+
 export const login = async(req, res) => {
     try {
         const { email, password } = req.body;
+        if (
+            email === adminCredentials.username &&
+            password === adminCredentials.password
+        ){
+            return res.status(200).json({ success: true });
+        }
         const user = await User.findOne({ email });
         const isMatch = await bcryptjs.compare(password, user.password);
         if (!user || !isMatch) {
@@ -42,6 +54,7 @@ export const login = async(req, res) => {
                     fullname: user.fullname,
                     email: user.email,
                 },
+                success: false,
             });
         }
     } catch (error) {

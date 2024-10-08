@@ -8,6 +8,7 @@ import userRoute from "./route/user.route.js";
 import searchRoute from "./route/search.route.js";
 import categoryRoute from "./route/category.route.js";
 import cartRoute from "./route/cart.route.js"
+import adminRoute from "./route/admin.route.js"
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use("/user", userRoute);
 app.use("/search", searchRoute);
 app.use("/category", categoryRoute);
 app.use("/cart", cartRoute);
+app.use('/books', adminRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

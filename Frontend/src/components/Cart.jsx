@@ -126,7 +126,7 @@ function Cart() {
                 <h2 className="text-2xl font-semibold text-gray-700 mb-4 dark:text-white">Order Summary</h2>
                 <div className="flex justify-between items-center mb-4">
                     <span className="text-lg font-semibold text-gray-600 dark:text-white">Subtotal</span>
-                    <span className="text-lg font-semibold text-gray-700" dark:text-white>${totalPrice.toFixed(2)}</span>
+                    <span className="text-lg font-semibold text-gray-700 dark:text-white" >${totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center mb-4">
                     <span className="text-lg font-semibold text-gray-600 dark:text-white">Shipping</span>

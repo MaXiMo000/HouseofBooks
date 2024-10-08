@@ -10,6 +10,7 @@ import Searchs from "./searchs/Searchs";
 import Abouts from "./abouts/abouts";
 import Categories from "./categories/categories"
 import Carts from "./carts/Carts";
+import Admin from "./components/Admin"
 
 function App() {
   const [authUser, setAuthUser] = useAuth();
@@ -29,6 +30,7 @@ function App() {
           <Route path="/about" element={<Abouts />} />
           <Route path="/category" element={<Categories />} />
           <Route path="/cart" element={<Carts/>}/>
+          <Route path="/admin" element={<Admin />} />
         </Routes>
         <Toaster />
       </div>
