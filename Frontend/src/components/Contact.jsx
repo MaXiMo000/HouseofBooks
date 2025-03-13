@@ -3,6 +3,10 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Field, Label, Switch } from '@headlessui/react'
 import emailjs from '@emailjs/browser';
 
+const VITE_CONTACT_SERVICE = import.meta.env.VITE_CONTACT_SERVICE;
+const VITE_CONTACT_TEMPLATE = import.meta.env.VITE_CONTACT_TEMPLATE;
+const VITE_CONTACT_KEY = import.meta.env.VITE_CONTACT_KEY;
+
 export default function Contact() {
     const [agreed, setAgreed] = useState(false)
 
@@ -14,8 +18,8 @@ export default function Contact() {
         e.preventDefault();
 
         emailjs
-        .sendForm('service_48sv7s6', 'template_q1ne13k', form.current, {
-            publicKey: 'mA6QlbTR7JSDUOVQP',
+        .sendForm(`${VITE_CONTACT_SERVICE}`, `${VITE_CONTACT_TEMPLATE}`, form.current, {
+            publicKey: `${VITE_CONTACT_KEY}`,
         })
         .then(
             () => {

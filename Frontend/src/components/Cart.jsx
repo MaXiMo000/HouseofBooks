@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
 
     const fetchCartItems = async () => {
     try {
-        const response = await axios.get("https://houseofbooksbackend.onrender.com/cart/get");
+        const response = await axios.get(`${BACKEND_URL}/cart/get`);
         console.log(response.data); // Add this line to inspect the response
 
         if (Array.isArray(response.data)) {
@@ -36,7 +38,7 @@ function Cart() {
 
     const handleIncrement = async (title) => {
         try {
-            const response = await axios.get(`https://houseofbooksbackend.onrender.com/cart/inc`, { params: { title } });
+            const response = await axios.get(`${BACKEND_URL}/cart/inc`, { params: { title } });
             console.log("Item quantity increased:", response.data);
             // Fetch updated cart items after increment
             fetchCartItems();
@@ -48,7 +50,7 @@ function Cart() {
     // Decrement the item quantity
     const handleDecrement = async (title) => {
         try {
-            const response = await axios.get(`https://houseofbooksbackend.onrender.com/cart/dec`, { params: { title } });
+            const response = await axios.get(`${BACKEND_URL}/cart/dec`, { params: { title } });
             console.log("Item quantity decreased or removed:", response.data);
             // Fetch updated cart items after decrement
             fetchCartItems();
@@ -59,7 +61,7 @@ function Cart() {
 
     const handleDelete = async (title) => {
         try {
-            await axios.get(`https://houseofbooksbackend.onrender.com/cart/delete`, { params: { title } });
+            await axios.get(`${BACKEND_URL}/cart/delete`, { params: { title } });
             fetchCartItems(); // Fetch updated cart items after deletion
         } catch (error) {
             console.error("Error deleting item from cart", error);

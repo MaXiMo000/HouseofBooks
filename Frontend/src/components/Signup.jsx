@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 function Signup() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ function Signup() {
       password: data.password,
     };
     await axios
-      .post("https://houseofbooksbackend.onrender.com/user/signup", userInfo)
+      .post(`${BACKEND_URL}/user/signup`, userInfo)
       .then((res) => {
         console.log(res.data);
         if (res.data) {

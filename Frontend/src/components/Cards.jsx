@@ -2,6 +2,8 @@ import React from "react";
 import {Link} from "react-router-dom"
 import axios from "axios";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 function Cards({ item }) {
 
   const handleAddToCart = async () => {
@@ -14,7 +16,7 @@ function Cards({ item }) {
 
     try {
       // Send item data to the backend using query params (you could also send it as a POST request)
-      const response = await axios.get('https://houseofbooksbackend.onrender.com/cart/add', {
+      const response = await axios.get(`${BACKEND_URL}/cart/add`, {
         params: {
           image: item.image,
           name: item.name,

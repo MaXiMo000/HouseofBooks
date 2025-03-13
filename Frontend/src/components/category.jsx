@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Category = () => {
     const [categoryQuery, setcategoryQuery] = useState('');
@@ -10,7 +11,7 @@ const Category = () => {
     const handleCat = async (e) => {
         e.preventDefault();
         try {
-        const response = await axios.get(`https://houseofbooksbackend.onrender.com/category`, {
+        const response = await axios.get(`${BACKEND_URL}/category`, {
             params: { category: categoryQuery },
         });
         setResults(response.data);

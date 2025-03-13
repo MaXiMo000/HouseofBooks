@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const AdminDashboard = () => {
     const [books, setBooks] = useState([]);
     const [bookData, setBookData] = useState({
@@ -20,7 +22,7 @@ const AdminDashboard = () => {
 
     const fetchBooks = async () => {
         try {
-        const response = await axios.get('https://houseofbooksbackend.onrender.com/books');
+        const response = await axios.get(`${BACKEND_URL}/books`);
         setBooks(response.data);
         } catch (error) {
         console.error('Error fetching books:', error);
@@ -35,7 +37,7 @@ const AdminDashboard = () => {
 
     const addBook = async () => {
         try {
-        const response = await axios.post('https://houseofbooksbackend.onrender.com/books/add', bookData);
+        const response = await axios.post(`${BACKEND_URL}/books/add`, bookData);
         if (response.data.success) {
             setMessage('Book added successfully!');
             setBookData({ name: '', price: '', category: '', image: '', title: '' });
@@ -51,7 +53,7 @@ const AdminDashboard = () => {
 
     const deleteBook = async (id) => {
         try {
-        const response = await axios.delete(`https://houseofbooksbackend.onrender.com/books/${id}`);
+        const response = await axios.delete(`${BACKEND_URL}/books/${id}`);
         if (response.data.success) {
             setMessage('Book deleted successfully!');
             fetchBooks();

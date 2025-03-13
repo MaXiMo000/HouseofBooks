@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 function Login() {
   const {
     register,
@@ -19,7 +21,7 @@ function Login() {
       password: data.password,
     };
     await axios
-      .post("https://houseofbooksbackend.onrender.com/user/login", userInfo)
+      .post(`${BACKEND_URL}/user/login`, userInfo)
       .then((res) => {
         if (res.data.success) {
           // Assuming the backend returns a success status

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const Search = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [results, setResults] = useState([]);
@@ -9,7 +11,7 @@ const Search = () => {
     const handleSearch = async (e) => {
         e.preventDefault();
         try {
-        const response = await axios.get(`https://houseofbooksbackend.onrender.com/search`, {
+        const response = await axios.get(`${BACKEND_URL}/search`, {
             params: { name: searchQuery },
         });
         setResults(response.data);

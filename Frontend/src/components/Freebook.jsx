@@ -8,12 +8,14 @@ import axios from "axios";
 
 import Cards from "./Cards";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 function Freebook() {
   const [book, setBook] = useState([]);
   useEffect(() => {
     const getBook = async () => {
       try {
-        const res = await axios.get("https://houseofbooksbackend.onrender.com/book");
+        const res = await axios.get(`${BACKEND_URL}/book`);
 
         const data = res.data.filter((data) => data.category === "Free");
         console.log(data);
