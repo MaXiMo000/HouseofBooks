@@ -21,11 +21,9 @@ Configure environment variables:
 Create a .env file in the backend directory and add the following:
 
 env
-
 PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_jwt_secret
-Run the application:
+MONGODB_URI=your_mongodb_connection_string
+
 
 bash
 
@@ -34,9 +32,25 @@ cd backend
 npm start
 
 # Start frontend development server
+env
+VITE_BACKEND_URL = your deployed backend url or localhost url
+VITE_CONTACT_KEY = from emailjs
+VITE_CONTACT_SERVICE = from emailjs
+VITE_CONTACT_TEMPLATE = from emailjs
 cd ../frontend
 npm start
-The application will be accessible at http://localhost:3000.
+The application will be accessible
+
+# Save json data for books in mongo like this
+eg: (
+    {   id: 3,
+        name: "J.K. Rowling",
+        title: "Harry Potter and the Sorcerer's Stone",
+        price: 10.99,
+        category: "Fantasy",
+        image: "https://images-na.ssl-images-amazon.com/images/I/81YOuOGFCJL.jpg"
+    }
+)
 
 📌 Future Enhancements
 Book Reading Feature: Implement an in-browser book reader to allow users to read books online.
