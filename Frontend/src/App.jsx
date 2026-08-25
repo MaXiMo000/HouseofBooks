@@ -30,7 +30,13 @@ function App() {
           <Route path="/about" element={<Abouts />} />
           <Route path="/category" element={<Categories />} />
           <Route path="/cart" element={<Carts/>}/>
-          <Route path="/admin" element={<Admin />} />
+          {/* The admin screen was reachable by typing /admin, logged in or
+              not. This is convenience only -- the server rejects non-admin
+              tokens regardless, which is where the real check belongs. */}
+          <Route
+            path="/admin"
+            element={authUser?.role === "admin" ? <Admin /> : <Navigate to="/" />}
+          />
         </Routes>
         <Toaster />
       </div>

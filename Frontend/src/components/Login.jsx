@@ -23,22 +23,19 @@ function Login() {
     await axios
       .post(`${BACKEND_URL}/user/login`, userInfo)
       .then((res) => {
-        if (res.data.success) {
-          // Assuming the backend returns a success status
-          console.log("yes");
-          // <Navigate to="/admin"/>
+        if (!res.data || !res.data.user) return;
+        // The backend used to answer `success: true` for a hardcoded
+        // admin@gmail.com / 1234 pair that lived in the source of a public
+        // repository. Admin is a role on the account now, and the token is
+        // what proves it -- the server checks it, not the client.
+        localStorage.setItem("Users", JSON.stringify(res.data.user));
+        localStorage.setItem("token", res.data.token);
+        toast.success("Loggedin Successfully");
+        document.getElementById("my_modal_3").close();
+        if (res.data.user.role === "admin") {
           navigate('/admin');
-        }
-        else{
-          console.log(res.data);
-          if (res.data) {
-            toast.success("Loggedin Successfully");
-            document.getElementById("my_modal_3").close();
-            setTimeout(() => {
-              window.location.reload();
-              localStorage.setItem("Users", JSON.stringify(res.data.user));
-          }, 1000);
-        }
+        } else {
+          setTimeout(() => window.location.reload(), 1000);
         }
       })
       .catch((err) => {

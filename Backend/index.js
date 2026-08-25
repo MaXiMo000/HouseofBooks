@@ -12,7 +12,13 @@ import adminRoute from "./route/admin.route.js"
 
 const app = express();
 
-app.use(cors());
+// cors() with no options reflects any origin, so any site could call this API
+// with a victim's browser. Allowlist instead; FRONTEND_URL is the deployed
+// origin, with the Vite dev server allowed for local work.
+const allowedOrigins = (process.env.FRONTEND_URL || "http://localhost:5173")
+    .split(",")
+    .map((o) => o.trim());
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 
 dotenv.config();

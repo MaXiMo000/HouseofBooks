@@ -14,6 +14,14 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    // Admin was previously a hardcoded email/password pair in
+    // controller/user.controller.js, in a public repository. It is a property
+    // of the account now, and an account is promoted with `npm run seed:admin`.
+    role: {
+        type: String,
+        enum: ["user", "admin"],
+        default: "user",
+    },
 });
 
 const User = mongoose.model("User", userSchema);

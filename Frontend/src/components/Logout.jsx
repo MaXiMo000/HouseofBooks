@@ -11,6 +11,9 @@ function Logout() {
         user: null,
       });
       localStorage.removeItem("Users");
+      // Leaving the token behind would keep admin writes working after
+      // logout, for as long as it stayed valid.
+      localStorage.removeItem("token");
       toast.success("Logout successfully");
 
       setTimeout(() => {

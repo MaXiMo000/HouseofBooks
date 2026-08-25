@@ -1,0 +1,64 @@
+name: ci
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af  # v4.1.0
+        with:
+          node-version: 22
+      - name: Backend installs and every file parses
+        working-directory: Backend
+        run: |
+          set -euo pipefail
+          npm install --no-audit --no-fund
+          for f in index.js controller/*.js route/*.js model/*.js middleware/*.js scripts/*.js; do
+            node --input-type=module --check < "$f"
+          done
+      - name: The server refuses to start without JWT_SECRET
+        working-directory: Backend
+        run: |
+          set -euo pipefail
+          if MongoDBURI="mongodb://127.0.0.1:1/x" node index.js 2>&1 | grep -q "JWT_SECRET is missing"; then
+            echo "refused, as intended"
+          else
+            echo "started without JWT_SECRET"; exit 1
+          fi
+      - name: Admin write routes are behind verifyToken + requireAdmin
+        working-directory: Backend
+        run: |
+          set -euo pipefail
+          grep -q "router.post('/add', verifyToken, requireAdmin" route/admin.route.js
+          grep -q "router.delete('/:id', verifyToken, requireAdmin" route/admin.route.js
+          echo "admin writes are guarded"
+      - name: No hardcoded credentials came back
+        run: |
+          set -euo pipefail
+          if grep -rniE "adminCredentials|password:\s*['\"]1234['\"]" Backend --include='*.js'; then
+            echo "hardcoded credentials found"; exit 1
+          fi
+          echo "none"
+      - name: Frontend builds
+        working-directory: Frontend
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+
+  carabiner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: "3.13"
+      - run: pip install carabiner-sec
+      - run: carabiner scan --all --fail-on high

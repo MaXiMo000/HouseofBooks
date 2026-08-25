@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Secrets. Backend/.env was committed five times between 2024-08-30 and
+# 2025-03-13 and carried a live MongoDB Atlas URI. There was no .gitignore in
+# this repo at all, which is how. A secret removed in a later commit is still
+# in the pack file and still needs rotating.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store

@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+// The admin write routes require a bearer token now; without it the
+// server answers 401 rather than silently accepting the change.
+const authHeader = () => ({
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+});
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const AdminDashboard = () => {
@@ -37,7 +43,7 @@ const AdminDashboard = () => {
 
     const addBook = async () => {
         try {
-        const response = await axios.post(`${BACKEND_URL}/books/add`, bookData);
+        const response = await axios.post(`${BACKEND_URL}/books/add`, bookData, authHeader());
         if (response.data.success) {
             setMessage('Book added successfully!');
             setBookData({ name: '', price: '', category: '', image: '', title: '' });
@@ -53,7 +59,7 @@ const AdminDashboard = () => {
 
     const deleteBook = async (id) => {
         try {
-        const response = await axios.delete(`${BACKEND_URL}/books/${id}`);
+        const response = await axios.delete(`${BACKEND_URL}/books/${id}`, authHeader());
         if (response.data.success) {
             setMessage('Book deleted successfully!');
             fetchBooks();
