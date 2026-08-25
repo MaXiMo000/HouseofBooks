@@ -28,11 +28,13 @@ jobs:
         working-directory: Backend
         run: |
           set -euo pipefail
-          if MongoDBURI="mongodb://127.0.0.1:1/x" node index.js 2>&1 | grep -q "JWT_SECRET is missing"; then
-            echo "refused, as intended"
-          else
-            echo "started without JWT_SECRET"; exit 1
-          fi
+          # Capture first, then grep. Piping node straight into grep under
+          # `pipefail` fails the step on node's non-zero exit -- which is the
+          # very behaviour being asserted.
+          out=$(MongoDBURI="mongodb://127.0.0.1:1/x" node index.js 2>&1 || true)
+          echo "$out"
+          echo "$out" | grep -q "JWT_SECRET is missing"
+          echo "refused, as intended"
       - name: Admin write routes are behind verifyToken + requireAdmin
         working-directory: Backend
         run: |
